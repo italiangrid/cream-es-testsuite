@@ -1,0 +1,1061 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>cream_es_testing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style media="all" type="text/css">
+body {
+  background: white;
+  color: black;
+  font-size: small;
+  font-family: sans-serif;
+  padding: 0.1em 0.5em;
+}
+a.name, span.name {
+  font-style: italic;
+}
+a, a:link, a:visited {
+  color: #c30;
+}
+a:hover, a:active {
+  text-decoration: underline;
+  color: black;
+}
+div.shortcuts {
+  margin: 1em 0em;
+  font-size: 0.9em;
+}
+div.shortcuts a {
+  text-decoration: none;
+  color: black;
+}
+div.shortcuts a:hover {
+  text-decoration: underline;
+}
+table.keywords {
+  border: 2px solid black;
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 0.3em 0em;
+  width: 100%;
+}
+table.keywords th, table.keywords td {
+  border: 2px solid black;
+  padding: 0.2em;
+  vertical-align: top;
+}
+table.keywords th {
+  background: #bbb;
+  color: black;
+}
+table.keywords td.kw {
+  width: 150px;
+  font-weight: bold;
+}
+table.keywords td.arg {
+  width: 300px;
+  font-style: italic;
+}
+table.doc {
+  border: 0px solid black;
+  background: transparent;
+  border-collapse: collapse;
+  empty-cells: show;
+  font-size: 1.2em;
+}
+table.doc td {
+  border: 0px solid black;
+  padding: 0.1em 0.3em;
+  height: 1.2em;
+
+}
+#footer {
+  font-size: 0.9em;
+}
+</style>
+<style media="print" type="text/css">
+body {
+  margin: 0px 1px;
+  padding: 0px;
+  font-size: 10px;
+}
+a {
+  text-decoration: none;
+}
+</style>
+</head>
+<body>
+<h1>CREAM Execution Service Testing</h1>
+
+
+<h2>Shortcuts</h2>
+<div class='shortcuts'>
+<a href="#Check Proxy" title="|  Description:  |  Check whether the proxy exists and if it has any time left.                                                  |">Check&nbsp;Proxy</a>
+&nbsp;&middot;&nbsp;
+<a href="#Create Proxy" title="|  Description:  |  Create a user proxy.                                        |">Create&nbsp;Proxy</a>
+&nbsp;&middot;&nbsp;
+<a href="#Destroy Proxy" title="|  Description:  |  Delete a user's proxy.  | ">Destroy&nbsp;Proxy</a>
+&nbsp;&middot;&nbsp;
+<a href="#Diff Seconds" title="|  Description: |   calculate difference of t1 from t2, in seconds                               | ">Diff&nbsp;Seconds</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Activity Cancel" title="|  Description:   |  Execute the glite-es-activity-cancel command on the given endpoint for this aid  | ">Es&nbsp;Activity&nbsp;Cancel</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Activity Create" title="|  Description:   |  Submit the activity described in the file adl to the endpoint ep               | ">Es&nbsp;Activity&nbsp;Create</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Activity Current Status" title="|  Description:   |  Execute the glite-es-activity-status command on the given endpoint               | ">Es&nbsp;Activity&nbsp;Current&nbsp;Status</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Activity Final Status" title="|  Description:   |  Execute the glite-es-activity-info command on the given endpoint and wait until  |">Es&nbsp;Activity&nbsp;Final&nbsp;Status</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Activity Info" title="|  Description:   |  Execute the glite-es-activity-info command on the given endpoint for this aid  | ">Es&nbsp;Activity&nbsp;Info</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Activity List" title="|  Description:   |  Execute the glite-es-activity-list command on the given endpoint,               |">Es&nbsp;Activity&nbsp;List</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Activity Pause" title="|  Description:   |  Execute the glite-es-activity-pause command on the given endpoint for this aid  | ">Es&nbsp;Activity&nbsp;Pause</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Activity Resume" title="|  Description:   |  Execute the glite-es-activity-resume command on the given endpoint for this aid  | ">Es&nbsp;Activity&nbsp;Resume</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Activity Wipe" title="|  Description:   |  Execute the glite-es-activity-wipe command on the given endpoint for this aid   | ">Es&nbsp;Activity&nbsp;Wipe</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Delegate Proxy" title="|  Description:   |  Execute the glite-es-delegate-proxy command on the given endpoint             | ">Es&nbsp;Delegate&nbsp;Proxy</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Delegation Info" title="|  Description:   |  Execute the glite-es-delegation-info command on the given endpoint             | ">Es&nbsp;Delegation&nbsp;Info</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Delegation Renew" title="|  Description:   |  Renew a delegation with glite-es-delegation-renew                              | ">Es&nbsp;Delegation&nbsp;Renew</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Multi Activity Create" title="|  Description:   |  Submit a multiple activity described in the file adl to the endpoint ep        | ">Es&nbsp;Multi&nbsp;Activity&nbsp;Create</a>
+&nbsp;&middot;&nbsp;
+<a href="#Es Multi Activity Current Status" title="|  Description:   |  Execute the glite-es-activity-status command on the given endpoint for multiple aids | ">Es&nbsp;Multi&nbsp;Activity&nbsp;Current&nbsp;Status</a>
+&nbsp;&middot;&nbsp;
+<a href="#Execute Command" title="|  Description:   |  Runs the given command through the subprocess module                          | ">Execute&nbsp;Command</a>
+&nbsp;&middot;&nbsp;
+<a href="#Execute Uberftp Command" title="|  Description: |    Execute an uberftp command on a gridftp url                               | ">Execute&nbsp;Uberftp&nbsp;Command</a>
+&nbsp;&middot;&nbsp;
+<a href="#Extract Error From Activity Submit" title="|  Description: |   calculate difference of t1 from t2, in seconds                               | ">Extract&nbsp;Error&nbsp;From&nbsp;Activity&nbsp;Submit</a>
+&nbsp;&middot;&nbsp;
+<a href="#Get Activity Sb" title="|  Description:  |  Find the gridftp url of the ISB of the given job                  | ">Get&nbsp;Activity&nbsp;Sb</a>
+&nbsp;&middot;&nbsp;
+<a href="#Multi Adl" title="|  Description: |   Multi adl file.Executes /bin/sleep for the defined number of seconds.       | ">Multi&nbsp;Adl</a>
+&nbsp;&middot;&nbsp;
+<a href="#Sleep Adl" title="|  Description: |   Simple adl file.Executes /bin/sleep for the defined number of seconds.      | ">Sleep&nbsp;Adl</a>
+&nbsp;&middot;&nbsp;
+<a href="#Sleep Failif Ne Adl" title="|  Description: |   Simple adl file, using the FailIfExitCodeNotEqualTo tag.                            |">Sleep&nbsp;Failif&nbsp;Ne&nbsp;Adl</a>
+&nbsp;&middot;&nbsp;
+<a href="#Unsupported Capabillity Adl" title="|  Description: |   Simple adl file, specifying an unsupported attribute.                       | ">Unsupported&nbsp;Capabillity&nbsp;Adl</a>
+</div>
+
+<h2>Keywords</h2>
+<table border="1" class="keywords">
+<tr>
+  <th class="kw">Keyword</th>
+  <th class="arg">Arguments</th>
+  <th class="doc">Documentation</th>
+</tr>
+<tr>
+  <td class="kw"><a name="Check Proxy"></a>Check Proxy</td>
+  <td class="arg">time_left=None</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Check whether the proxy exists and if it has any time left.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>Without any arguments,it checks if the proxy exists and has any time left</td>
+</tr>
+<tr>
+<td></td>
+<td>With one argument,it checks if the proxy exists and has greater than or equal to the requested time left.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>nothing</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Create Proxy"></a>Create Proxy</td>
+  <td class="arg">password, vo, cert=None, key=None, time=None</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Create a user proxy.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>password</td>
+<td>the user's proxy password</td>
+</tr>
+<tr>
+<td></td>
+<td>vo</td>
+<td>for the voms extention.</td>
+</tr>
+<tr>
+<td></td>
+<td>cert</td>
+<td>non standard certificate path</td>
+</tr>
+<tr>
+<td></td>
+<td>key</td>
+<td>non standard key path</td>
+</tr>
+<tr>
+<td></td>
+<td>time</td>
+<td>the validity period of the proxy. Form: HH:MM</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>nothing.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Destroy Proxy"></a>Destroy Proxy</td>
+  <td class="arg"></td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Delete a user's proxy.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>none.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>nothing.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Diff Seconds"></a>Diff Seconds</td>
+  <td class="arg">t1, t2, tolerance=0</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>calculate difference of t1 from t2, in seconds</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>t1</td>
+<td>a timestamp in seconds</td>
+</tr>
+<tr>
+<td></td>
+<td>t2</td>
+<td>a timestamp in seconds</td>
+</tr>
+<tr>
+<td></td>
+<td>tolerance</td>
+<td>the maximum difference between the two timestamps</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>diff in seconds</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Activity Cancel"></a>Es Activity Cancel</td>
+  <td class="arg">ep, aid</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-activity-cancel command on the given endpoint for this aid</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>aid</td>
+<td>the activity id</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>nothing or error</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Activity Create"></a>Es Activity Create</td>
+  <td class="arg">ep, adl, retOut=False</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Submit the activity described in the file adl to the endpoint ep</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>adl</td>
+<td>path to adl file</td>
+</tr>
+<tr>
+<td></td>
+<td>retOut</td>
+<td>if set to True, the output will also be returned</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>the submitted aid &nbsp;and possibly the command's output</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Activity Current Status"></a>Es Activity Current Status</td>
+  <td class="arg">ep, aid</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-activity-status command on the given endpoint</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>aid</td>
+<td>the activity id</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>the activity's status and attributes</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Activity Final Status"></a>Es Activity Final Status</td>
+  <td class="arg">ep, aid</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-activity-info command on the given endpoint and wait until</td>
+</tr>
+<tr>
+<td></td>
+<td>the job has reached TERMINAL status</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>aid</td>
+<td>the activity id</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>the activity's status (normaly TERMINAL) and attributes</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Activity Info"></a>Es Activity Info</td>
+  <td class="arg">ep, aid</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-activity-info command on the given endpoint for this aid</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>aid</td>
+<td>the activity id</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>the activity's info</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Activity List"></a>Es Activity List</td>
+  <td class="arg">ep, fMax=None, fFrom=None, fTo=None, fState=None</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-activity-list command on the given endpoint,</td>
+</tr>
+<tr>
+<td></td>
+<td>using the specified filters.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>fMax</td>
+<td>the maximum returned entries filter</td>
+</tr>
+<tr>
+<td></td>
+<td>fFrom</td>
+<td>FROM YYYY-MM-DD HH:mm:ss date filter</td>
+</tr>
+<tr>
+<td></td>
+<td>fTo</td>
+<td>TO YYYY-MM-DD HH:mm:ss date filter</td>
+</tr>
+<tr>
+<td></td>
+<td>fState</td>
+<td>Sets the status/status-attrs filter: each status/status-attr is</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>a string in this format &lt;STATUS&gt;[:&lt;STATUS_ATTRIBUTE&gt;]; multiple</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>status/status-attr items can be separated by ',' and are OR'ed by</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>the service when it tries to selects activities to return.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Example: TERMINAL,PREPROCESSING:VALIDATING,TERMINAL:APP_FAILURE</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Check corresponding man page for relevant statuses and attributes.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>list of aid(s)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Activity Pause"></a>Es Activity Pause</td>
+  <td class="arg">ep, aid</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-activity-pause command on the given endpoint for this aid</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>aid</td>
+<td>the activity id</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>nothing or error</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Activity Resume"></a>Es Activity Resume</td>
+  <td class="arg">ep, aid</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-activity-resume command on the given endpoint for this aid</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>aid</td>
+<td>the activity id</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>nothing or error</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Activity Wipe"></a>Es Activity Wipe</td>
+  <td class="arg">ep, aid</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-activity-wipe command on the given endpoint for this aid</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>aid</td>
+<td>the activity id</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>nothing or error</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Delegate Proxy"></a>Es Delegate Proxy</td>
+  <td class="arg">ep</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-delegate-proxy command on the given endpoint</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>the delegation id or raises error</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Delegation Info"></a>Es Delegation Info</td>
+  <td class="arg">ep, did, time=False</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-delegation-info command on the given endpoint</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>did</td>
+<td>the delegation id</td>
+</tr>
+<tr>
+<td></td>
+<td>time</td>
+<td>if set to True, the time remaining is instead returned</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>the command's output or the time remaining (in seconds)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Delegation Renew"></a>Es Delegation Renew</td>
+  <td class="arg">ep, did</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Renew a delegation with glite-es-delegation-renew</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>did</td>
+<td>the delegation id</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>the command's output</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Multi Activity Create"></a>Es Multi Activity Create</td>
+  <td class="arg">ep, adl</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Submit a multiple activity described in the file adl to the endpoint ep</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>adl</td>
+<td>path to adl file</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>list of aids</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Es Multi Activity Current Status"></a>Es Multi Activity Current Status</td>
+  <td class="arg">ep, aids</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute the glite-es-activity-status command on the given endpoint for multiple aids</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>ep</td>
+<td>the endpoint on which to run the command &nbsp;(format: host:port )</td>
+</tr>
+<tr>
+<td></td>
+<td>aids</td>
+<td>a list of aids</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>two lists with statuses and attributes, in correct order</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Execute Command"></a>Execute Command</td>
+  <td class="arg">com</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Runs the given command through the subprocess module</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>com</td>
+<td>a string with the command and its arguments</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>(int,str) tuple, containing the returnValue and the output of the command</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Execute Uberftp Command"></a>Execute Uberftp Command</td>
+  <td class="arg">uberftp_command, gridftp_server, gridftp_path</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Execute an uberftp command on a gridftp url</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>uberftp_command</td>
+<td>one of cat,chgrp,chmod,dir,ls,mkdir,</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>rename,rm,rmdir,size,stage</td>
+</tr>
+<tr>
+<td></td>
+<td>gridftp_server</td>
+<td>the gridftp server hostname</td>
+</tr>
+<tr>
+<td></td>
+<td>gridftp_path</td>
+<td>the path in the gridftp server</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>The output of the command</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Extract Error From Activity Submit"></a>Extract Error From Activity Submit</td>
+  <td class="arg">s</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>calculate difference of t1 from t2, in seconds</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>s</td>
+<td>activity submit output</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>error message (may be empty)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Get Activity Sb"></a>Get Activity Sb</td>
+  <td class="arg">ep, aid</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Find the gridftp url of the ISB of the given job</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>aid</td>
+<td>activity id returned by submit operation</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td></td>
+<td>ep</td>
+<td>enpoint</td>
+</tr>
+<tr>
+<td>Returns:</td>
+<td>(gridftp server, gridftp path)</td>
+<td></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Multi Adl"></a>Multi Adl</td>
+  <td class="arg">queue, secs, output_dir</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Multi adl file.Executes /bin/sleep for the defined number of seconds.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>queue</td>
+<td>the queue to submit the activity</td>
+</tr>
+<tr>
+<td></td>
+<td>secs</td>
+<td>seconds to sleep</td>
+</tr>
+<tr>
+<td></td>
+<td>output_dir</td>
+<td>the directory to put the file in</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>Temporary file name.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Sleep Adl"></a>Sleep Adl</td>
+  <td class="arg">queue, secs, output_dir</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Simple adl file.Executes /bin/sleep for the defined number of seconds.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>queue</td>
+<td>the queue to submit the activity</td>
+</tr>
+<tr>
+<td></td>
+<td>secs</td>
+<td>seconds to sleep</td>
+</tr>
+<tr>
+<td></td>
+<td>output_dir</td>
+<td>the directory to put the file in</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>Temporary file name.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Sleep Failif Ne Adl"></a>Sleep Failif Ne Adl</td>
+  <td class="arg">queue, secs, output_dir, failif_exitcode_ne=None</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Simple adl file, using the FailIfExitCodeNotEqualTo tag.</td>
+</tr>
+<tr>
+<td></td>
+<td>Executes /bin/sleep for the defined number of seconds.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>queue</td>
+<td>the queue to submit the activity</td>
+</tr>
+<tr>
+<td></td>
+<td>secs</td>
+<td>seconds to sleep</td>
+</tr>
+<tr>
+<td></td>
+<td>output_dir</td>
+<td>the directory to put the file in</td>
+</tr>
+<tr>
+<td></td>
+<td>failif_exitcode_ne</td>
+<td>the FailIfExitCodeNotEqualTo argument (ignore if None)</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>Temporary file name.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td class="kw"><a name="Unsupported Capabillity Adl"></a>Unsupported Capabillity Adl</td>
+  <td class="arg">queue, output_dir, optional=None</td>
+  <td class="doc"><table border="1" class="doc">
+<tr>
+<td>Description:</td>
+<td>Simple adl file, specifying an unsupported attribute.</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Arguments:</td>
+<td>queue</td>
+<td>the queue to submit the activity</td>
+</tr>
+<tr>
+<td></td>
+<td>output_dir</td>
+<td>the directory to put the file in</td>
+</tr>
+<tr>
+<td></td>
+<td>optional</td>
+<td>the optional value for the capabillity being tested</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(either true, false or none(not present)</td>
+</tr>
+</table>
+<br />
+<table border="1" class="doc">
+<tr>
+<td>Returns:</td>
+<td>Temporary file name.</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,1668 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html {
+  font-family: Arial,Helvetica,sans-serif;
+  background-color: white;
+  color: black;
+}
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 1em 0em;
+  border: 1px solid black;
+}
+th, td {
+  border: 1px solid black;
+  padding: 0.1em 0.2em;
+  height: 1.5em;
+  width: 12em;
+}
+td.colspan4, th.colspan4 {
+    width: 48em;
+}
+td.colspan3, th.colspan3 {
+    width: 36em;
+}
+td.colspan2, th.colspan2 {
+    width: 24em;
+}
+th {
+  background-color: rgb(192, 192, 192);
+  color: black;
+  height: 1.7em;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+td.name {
+  background-color: rgb(240, 240, 240);
+  letter-spacing: 0.1em;
+}
+td.name, th.name {
+  width: 10em;
+}
+</style>
+<title>Cream Es Test Suite</title>
+</head>
+<body>
+<h1>Cream Es Test Suite</h1>
+<table border="1" id="setting">
+<tr>
+<th class="name" colspan="5">Setting</th>
+</tr>
+<tr>
+<td class="name">Documentation</td>
+<td class="colspan4" colspan="4">This is the main testing module, needed for testing the CREAM -ES functionality. For more infromation check these urls:\nCREAM User's Guide: <a href="https://wiki.italiangrid.it/twiki/bin/view/CREAM/UserGuideEMI2\nCREAM">https://wiki.italiangrid.it/twiki/bin/view/CREAM/UserGuideEMI2\nCREAM</a> Admin's Guide: <a href="https://wiki.italiangrid.it/twiki/bin/view/CREAM/SystemAdministratorGuideForEMI2\nCREAM-ES">https://wiki.italiangrid.it/twiki/bin/view/CREAM/SystemAdministratorGuideForEMI2\nCREAM-ES</a> Test Suite Guide: tbd\nEMI Robot Framework Quickstart Guide: \ <a href="https://twiki.cern.ch/twiki/bin/view/EMI/RobotFrameworkQuickstartGuide">https://twiki.cern.ch/twiki/bin/view/EMI/RobotFrameworkQuickstartGuide</a></td>
+</tr>
+<tr>
+<td class="name">Suite Teardown</td>
+<td>Clean Up</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Metadata</td>
+<td>Temporary Files Location</td>
+<td>${tmp_dir}</td>
+<td># The directory in which the temporary test suite files will be stored.</td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>/opt/cream_es_test/lib/cream_es_testing.py</td>
+<td># This is the main cream-es testing robot library,implemented as a python module.For more information,check the accompanied html documention (created with pydoc).</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>Operating System</td>
+<td># Builtin "Operating System" library,providing keywords for interaction with the system.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>Collections</td>
+<td># List and dictionary manipulating library</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Variables</td>
+<td>/opt/cream_es_test/lib/vars_es.py</td>
+<td># This is the variables file, containing various needed values for the execution of the test suite.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="testcase">
+<tr>
+<th class="name" colspan="5">Test Case</th>
+</tr>
+<tr>
+<td class="name"><a name="test_Set Log Level">Set Log Level</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Set the log level used for the test suite. This changes the verbosity of the final test suite log files.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>loglevel</td>
+<td>setup</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Set Log Level</td>
+<td>${log_level}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Check Executables">Check Executables</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Check whether the needed executables for the test are available in the underlying system.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>check_exe</td>
+<td>setup</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/glite-ce-delegate-proxy</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/glite-es-delegate-proxy</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/glite-es-delegation-info</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/glite-es-activity-create</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/glite-es-activity-status</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/glite-es-activity-list</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/glite-es-activity-info</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/glite-es-activity-pause</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/glite-es-activity-resume</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/glite-es-activity-cancel</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/voms-proxy-init</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/voms-proxy-info</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>File Should Exist</td>
+<td>/usr/bin/voms-proxy-destroy</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Delegation">Delegation</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Create a delegation and check that its lifetime is the same as the proxy it originated from. A tolerance of 5 minutes (300 seconds) is used, just in case the clocks of the hosts aren't synchronized.\nNodes must be syncronized for this test to work.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>deleg</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${did}=</td>
+<td>ES Delegate Proxy</td>
+<td>${ce}</td>
+<td># ${adl}=</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>#Sleep ADL</td>
+<td>${queue}</td>
+<td>10</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>#${tmp_dir}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${tLeft}=</td>
+<td>ES Delegation Info</td>
+<td>${ce}</td>
+<td>${did}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>True</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${tLeft2}=</td>
+<td>Evaluate</td>
+<td>${tLeft}-300</td>
+<td># allow 5 minute diff in hosts' clocks</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Proxy</td>
+<td>${tLeft2}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>Simple Teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Proxy Renewal">Proxy Renewal</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Create a one hour proxy and delegate it. Then make a two hour proxy and renew the delegation. In each case, the delegation's lifetime must be similar to the proxy's lifetime.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>proxy_renew</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td>time=01:00</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${did}=</td>
+<td>ES Delegate Proxy</td>
+<td>${ce}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${tLeft}=</td>
+<td>ES Delegation Info</td>
+<td>${ce}</td>
+<td>${did}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>True</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Diff Seconds</td>
+<td>${tLeft}</td>
+<td>3600</td>
+<td>300</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td># allow 5 minutes time difference between hosts' clocks</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td>time=02:00</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${output}=</td>
+<td>ES Delegation Renew</td>
+<td>${ce}</td>
+<td>${did}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${tLeft}=</td>
+<td>ES Delegation Info</td>
+<td>${ce}</td>
+<td>${did}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>True</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Diff Seconds</td>
+<td>${tLeft}</td>
+<td>7200</td>
+<td>300</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td># allow 5 minutes time difference between hosts' clocks</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>Simple Teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Activity without Data Staging">Activity without Data Staging</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Submit and collect a simple activity, executing 'sleep'.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>simple_activity</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl}=</td>
+<td>Sleep ADL</td>
+<td>${queue}</td>
+<td>10</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${tmp_dir}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aid}=</td>
+<td>ES Activity Create</td>
+<td>${ce}</td>
+<td>${adl}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${status}</td>
+<td>${attrs}=</td>
+<td>ES Activity Final Status</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aid}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${log}=</td>
+<td>ES Activity Info</td>
+<td>${ce}</td>
+<td>${aid}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log Many</td>
+<td>${log}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should be equal as strings</td>
+<td>${status}</td>
+<td>TERMINAL</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>Simple Teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Activity with FailIfExitCodeNotEqualTo">Activity with FailIfExitCodeNotEqualTo</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Submit and collect a simple activity, executing 'sleep', using the "FailIfExitCodeNotEqualTo" attribute of the ad language.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>failif</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl}=</td>
+<td>Sleep Failif NE ADL</td>
+<td>${queue}</td>
+<td>10</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${tmp_dir}</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aid}=</td>
+<td>ES Activity Create</td>
+<td>${ce}</td>
+<td>${adl}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${status}</td>
+<td>${attrs}=</td>
+<td>ES Activity Final Status</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aid}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${log}=</td>
+<td>ES Activity Info</td>
+<td>${ce}</td>
+<td>${aid}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log Many</td>
+<td>${log}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should be equal as strings</td>
+<td>${status}</td>
+<td>TERMINAL</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Contain</td>
+<td>${attrs}</td>
+<td>APP_FAILURE</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>Simple Teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Multiple Activities">Multiple Activities</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Submit and collect two activities, described in the same adl file.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>multi</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl}=</td>
+<td>Multi ADL</td>
+<td>${queue}</td>
+<td>10</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${tmp_dir}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aids}=</td>
+<td>ES Multi Activity Create</td>
+<td>${ce}</td>
+<td>${adl}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${statuses}</td>
+<td>${attributes}=</td>
+<td>ES Multi Activity Current Status</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aids}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${len}=</td>
+<td>Get Length</td>
+<td>${statuses}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Numbers</td>
+<td>${len}</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>Simple Teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Unsupported Capabillity">Unsupported Capabillity</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Submit a job describing an invalid capability. Try it by using the option "optional" as true, false or not at all. Verify the expected behaviour (fail for "false" and no option, success for "true").</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>unsupported</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl}=</td>
+<td>Unsupported Capabillity ADL</td>
+<td>${queue}</td>
+<td>${tmp_dir}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl_true}=</td>
+<td>Unsupported Capabillity ADL</td>
+<td>${queue}</td>
+<td>${tmp_dir}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>true</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl_false}=</td>
+<td>Unsupported Capabillity ADL</td>
+<td>${queue}</td>
+<td>${tmp_dir}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>false</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aid}</td>
+<td>${output}=</td>
+<td>ES Activity Create</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${adl}</td>
+<td>True</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aid_false}</td>
+<td>${output_false}=</td>
+<td>ES Activity Create</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${adl_false}</td>
+<td>True</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aid_true}=</td>
+<td>ES Activity Create</td>
+<td>${ce}</td>
+<td>${adl_true}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${error}=</td>
+<td>Extract Error from Activity Submit</td>
+<td>${output}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${error_false}=</td>
+<td>Extract Error from Activity Submit</td>
+<td>${output_false}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${status}</td>
+<td>${attrs}=</td>
+<td>ES Activity Final Status</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aid_true}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should be equal as strings</td>
+<td>${status}</td>
+<td>TERMINAL</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Empty</td>
+<td>${attrs}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Contain</td>
+<td>${error}</td>
+<td>capability not supported</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Contain</td>
+<td>${error_false}</td>
+<td>capability not supported</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>Simple Teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_List">List</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Verify the proper usage of the listing facilities of the ES. Tests:\n1) List activities before and after a submission, checking the expected results.\n2) List a certain number of activities and verify that this number was returned.\n3) Test the time filter, by listing jobs coming from the future (should return no jobs).</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>list</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl}=</td>
+<td>Sleep ADL</td>
+<td>${queue}</td>
+<td>10</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${tmp_dir}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${list_before}=</td>
+<td>ES Activity List</td>
+<td>${ce}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aid}=</td>
+<td>ES Activity Create</td>
+<td>${ce}</td>
+<td>${adl}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${list_after}=</td>
+<td>ES Activity List</td>
+<td>${ce}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log Many</td>
+<td>${list_before}</td>
+<td>${list_after}</td>
+<td>${aid}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Contain</td>
+<td>${list_after}</td>
+<td>${aid}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Not Contain</td>
+<td>${list_before}</td>
+<td>${aid}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${list_one}</td>
+<td>ES Activity List</td>
+<td>${ce}</td>
+<td>fMax=1</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${len}=</td>
+<td>Get Length</td>
+<td>${list_one}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Numbers</td>
+<td>${len}</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${list_zero}</td>
+<td>ES Activity List</td>
+<td>${ce}</td>
+<td>fFrom=2015-01-01 00:00:00</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${len}=</td>
+<td>Get Length</td>
+<td>${list_zero}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Numbers</td>
+<td>${len}</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>Simple Teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Activity Info">Activity Info</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Same as the "Activity without Data Staging" test. Used to verify that the es-activity-info works as expected.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>info</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl}=</td>
+<td>Sleep ADL</td>
+<td>${queue}</td>
+<td>10</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${tmp_dir}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aid}=</td>
+<td>ES Activity Create</td>
+<td>${ce}</td>
+<td>${adl}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${status}</td>
+<td>${attrs}=</td>
+<td>ES Activity Final Status</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aid}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${log}=</td>
+<td>ES Activity Info</td>
+<td>${ce}</td>
+<td>${aid}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log Many</td>
+<td>${log}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should be equal as strings</td>
+<td>${status}</td>
+<td>TERMINAL</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>Simple Teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Pause and Resume">Pause and Resume</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Submit an activity, wait, pause it, wait, resume it. In all intermediate steps, the activity's status and attributes must correspond to the specification (running, paused, etc).</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>pause_resume</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl}=</td>
+<td>Sleep ADL</td>
+<td>${queue}</td>
+<td>1200</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${tmp_dir}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aid}=</td>
+<td>ES Activity Create</td>
+<td>${ce}</td>
+<td>${adl}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Sleep</td>
+<td>1m</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>ES Activity Pause</td>
+<td>${ce}</td>
+<td>${aid}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Sleep</td>
+<td>1m</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${status}</td>
+<td>${attrs}=</td>
+<td>ES Activity Current Status</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aid}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Strings</td>
+<td>${status}</td>
+<td>PROCESSING_RUNNING</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Strings</td>
+<td>${attrs}</td>
+<td>CLIENT_PAUSED</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>ES Activity Resume</td>
+<td>${ce}</td>
+<td>${aid}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Sleep</td>
+<td>1m</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${status}</td>
+<td>${attrs}=</td>
+<td>ES Activity Current Status</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aid}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Strings</td>
+<td>${status}</td>
+<td>PROCESSING_RUNNING</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Empty</td>
+<td>${attrs}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Cancel">Cancel</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Submit and cancel an activity. Verify that the end status and attributes are the right ones (terminal and xxx_cancel respectively).</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>cancel</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl}=</td>
+<td>Sleep ADL</td>
+<td>${queue}</td>
+<td>120</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${tmp_dir}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aid}=</td>
+<td>ES Activity Create</td>
+<td>${ce}</td>
+<td>${adl}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Sleep</td>
+<td>1m</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>ES Activity Cancel</td>
+<td>${ce}</td>
+<td>${aid}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Sleep</td>
+<td>1m</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${status}</td>
+<td>${attrs}=</td>
+<td>ES Activity Current Status</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aid}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Sleep</td>
+<td>1m</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Strings</td>
+<td>${status}</td>
+<td>TERMINAL</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Contain</td>
+<td>${attrs}</td>
+<td>CANCEL</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>Simple Teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_Wipe">Wipe</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Perform an activity and then wipe it. Then check that it is untraceable through es-activity-status and its sandbox has been deleted.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td>wipe</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Proxy</td>
+<td>${proxy_pass}</td>
+<td>${vo}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adl}=</td>
+<td>Sleep ADL</td>
+<td>${queue}</td>
+<td>10</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${tmp_dir}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Test</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${aid}=</td>
+<td>ES Activity Create</td>
+<td>${ce}</td>
+<td>${adl}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${status}</td>
+<td>${attrs}=</td>
+<td>ES Activity Final Status</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aid}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${log}=</td>
+<td>ES Activity Info</td>
+<td>${ce}</td>
+<td>${aid}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log Many</td>
+<td>${log}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should be equal as strings</td>
+<td>${status}</td>
+<td>TERMINAL</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${server}</td>
+<td>${path}=</td>
+<td>Get Activity SB</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aid}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>ES Activity Wipe</td>
+<td>${ce}</td>
+<td>${aid}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Run Keyword and Expect Error</td>
+<td>*</td>
+<td>ES Activity Current Status</td>
+<td>${ce}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${aid}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Run Keyword and Expect Error</td>
+<td>*</td>
+<td>Execute UberFTP Command</td>
+<td>ls</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${server}</td>
+<td>${path}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>Simple Teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="keyword">
+<tr>
+<th class="name" colspan="5">Keyword</th>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Simple Teardown">Simple Teardown</a></td>
+<td>Destroy Proxy</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Clean Up">Clean Up</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Delete any and all leftover files from the test.All the files created are located under /tmp and have the prefix "cream_testing-".</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Run Keyword If</td>
+<td>'${delete_files}' == 'True'</td>
+<td>Remove Directory</td>
+<td>${tmp_dir}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>recursive="True"</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+</body>
+</html>
